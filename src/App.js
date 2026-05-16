@@ -1,46 +1,32 @@
+import logo from './logo.svg';
 import './App.css';
-import { useState } from "react";
+import {useState} from "react";
 import "milligram";
 
+
+
 function App() {
+const [email, setEmail] = useState('anna@agh.edu.pl');
 
-    // stany komponentów
-    const [email, setEmail] = useState('anna@agh.edu.pl');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    function handleChange(event) {
-        setEmail(event.target.value);
-    }
+return (
+<div className = "container">
 
-    function handleLogin() {
-        setIsLoggedIn(true);
-    }
+<h1>Witaj w systemie do zapisów na zajęcia</h1>
+Zaloguj się emailem:
+{!isLoggedIn &&<div>
+<input type="text" onChange={(event)=>setEmail(event.target.value)}/>
 
-    function handleLogout() {
-        setIsLoggedIn(false);
-    }
+<button onClick={() => setIsLoggedIn(true)}>Zaloguj się</button>
+</div>}
 
-    return (
-        <div>
-            <h1>Witaj w systemie do zapisów na zajęcia</h1>
+{isLoggedIn && <div>
+<h1>Witaj {email }</h1>
+<button onClick={() => setIsLoggedIn(false)}>Wyloguj</button>
 
-            {!isLoggedIn && (
-                <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
-                    <p>Zaloguj się e-mailem</p>
-                    <input type="text" value={email} onChange={handleChange}/>
-                    <button type="button" onClick={handleLogin}>
-                        Wchodzę
-                    </button>
-                </div>
-            )}
-            {isLoggedIn && (
-                <div>
-                    <h2>Witaj: {email}</h2>
-                    <button type="button" onClick={handleLogout}
-                    style={{color: "blue"}}> Wyloguj </button>
-                </div>
-            )}
-        </div>
-    );
+</div>}
+</div>
+);
 }
 export default App;
