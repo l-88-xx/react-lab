@@ -3,24 +3,23 @@ import './App.css';
 import {useState} from "react";
 import "milligram";
 import LoginForm from "./LoginForm";
+import UserPanel from "./UserPanel"
 
 
 function App() {
-const [email, setEmail] = useState('anna@agh.edu.pl');
-const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [loggedInUsername, setLoggedInUsername] = useState(null);
 
 return (
 <div className = "container">
-
-<h1>Witaj w systemie do zapisów na zajęcia</h1>
-{ !isLoggedIn && <LoginForm onLogin={() => {}}/> }
-
-{isLoggedIn && <div>
-<h1>Witaj {email }</h1>
-<a onClick={() => setIsLoggedIn(false)}>Wyloguj</a>
-
-</div>}
-</div>
-);
+    <h1>Witaj w systemie do zapisów na zajęcia</h1>
+{
+        loggedInUsername
+                ? <UserPanel email = {loggedInUsername}
+                        onLogout ={() => setLoggedInUsername(null)}/>
+                : <LoginForm onLogin = {(email) => setLoggedInUsername(email)}/>
+       }
+       </div>
+    )
 }
+
 export default App;
